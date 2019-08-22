@@ -17,14 +17,13 @@ public class GasServiceImpl implements GasService {
         this.gasRepository = gasRepository;
     }
 
-
     @Override
     public GasEntity insert(GasEntity gasEntity) {
-        return null;
+        return this.insert(gasEntity);
     }
 
     @Override
     public List<GasEntity> findAll() {
-        return null;
+        return this.findAll();
     }
 }
