@@ -5,8 +5,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table
+@Entity(name = "GasEntity")
+@Table(name = "GasEntity")
 @SequenceGenerator(allocationSize = 1, initialValue = 1, name = "gas_seq", sequenceName = "gas_seq")
 public class GasEntity {
 
