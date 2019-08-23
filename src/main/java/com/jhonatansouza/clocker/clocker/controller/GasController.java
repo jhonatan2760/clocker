@@ -34,8 +34,14 @@ public class GasController {
     }
 
     @GetMapping("/")
+    @CrossOrigin(origins = "http://localhost:8089")
     public ResponseEntity<List<GasResponse>> getLastPulses(@PageableDefault (value = 10, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable){
-        return ResponseEntity.ok(this.gasService.findAll(pageable).stream().map(GasResponse::fromEntity).collect(Collectors.toList()));
+        return ResponseEntity.ok(this.gasService
+                    .findAll(pageable)
+                    .stream()
+                    .map(GasResponse::fromEntity)
+                    .collect(Collectors.toList())
+                );
     }
 
 }
