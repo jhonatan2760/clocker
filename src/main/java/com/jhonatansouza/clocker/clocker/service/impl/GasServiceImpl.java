@@ -4,6 +4,8 @@ import com.jhonatansouza.clocker.clocker.data.GasRepository;
 import com.jhonatansouza.clocker.clocker.model.GasEntity;
 import com.jhonatansouza.clocker.clocker.service.GasService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class GasServiceImpl implements GasService {
     }
 
     @Override
-    public List<GasEntity> findAll() {
-        return this.gasRepository.getLast10Pulses();
+    public Page<GasEntity> findAll(Pageable pageable) {
+        return this.gasRepository.findAll(pageable);
     }
 }

@@ -11,7 +11,7 @@ public class GasResponse {
 
     private Long idPulse;
     private int ppm;
-    private LocalDateTime timeStamp;
+    private String timeStamp;
 
     public int getPpm() {
         return ppm;
@@ -21,12 +21,12 @@ public class GasResponse {
         this.ppm = ppm;
     }
 
-    public LocalDateTime getTimeStamp() {
+    public String getTimeStamp() {
         return timeStamp;
     }
 
     public void setTimeStamp(LocalDateTime timeStamp) {
-        this.timeStamp = timeStamp;
+        this.timeStamp = timeStamp.toString();
     }
 
     public Long getIdPulse() {
