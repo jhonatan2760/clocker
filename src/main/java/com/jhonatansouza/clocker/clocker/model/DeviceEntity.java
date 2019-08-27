@@ -1,14 +1,26 @@
 package com.jhonatansouza.clocker.clocker.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@SequenceGenerator(sequenceName = "device_entity_seq",
+        name = "device_entity_seq",
+        initialValue = 1,
+        allocationSize = 1)
 public class DeviceEntity {
 
+    @Id
+    @GeneratedValue(generator = "device_entity_seq", strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(name = "device_name")
     private String name;
+    @Column(name = "is_active")
     private boolean status;
+    @CreationTimestamp
     private LocalDateTime createdAt;
-
 
     public Long getId() {
         return id;
