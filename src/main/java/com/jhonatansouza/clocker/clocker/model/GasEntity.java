@@ -13,6 +13,7 @@ public class GasEntity {
     private Long id;
     private int ppm;
     private LocalDateTime timeStamp;
+    private DeviceEntity deviceEntity;
 
     @Id
     @GeneratedValue(generator = "gas_seq", strategy = GenerationType.SEQUENCE)
@@ -39,5 +40,14 @@ public class GasEntity {
 
     public void setTimeStamp(LocalDateTime timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    @ManyToOne
+    public DeviceEntity getDeviceEntity() {
+        return deviceEntity;
+    }
+
+    public void setDeviceEntity(DeviceEntity deviceEntity) {
+        this.deviceEntity = deviceEntity;
     }
 }

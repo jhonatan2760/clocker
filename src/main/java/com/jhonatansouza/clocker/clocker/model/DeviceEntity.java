@@ -17,6 +17,8 @@ public class DeviceEntity {
     private Long id;
     @Column(name = "device_name")
     private String name;
+    @Column(name = "serial_number")
+    private String serialNumber;
     @Column(name = "is_active")
     private boolean status;
     @CreationTimestamp
@@ -52,5 +54,13 @@ public class DeviceEntity {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 }
