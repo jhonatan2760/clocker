@@ -2,6 +2,7 @@ package com.jhonatansouza.clocker.clocker.controller;
 
 import com.jhonatansouza.clocker.clocker.dto.request.GasRequest;
 import com.jhonatansouza.clocker.clocker.dto.response.GasResponse;
+import com.jhonatansouza.clocker.clocker.dto.response.MeanResponse;
 import com.jhonatansouza.clocker.clocker.service.GasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,13 +35,25 @@ public class GasController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<GasResponse>> getLastPulses(@PageableDefault (value = 10, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable){
+    public ResponseEntity<List<GasResponse>> getLastPulses(@PageableDefault (value = 100, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable){
         return ResponseEntity.ok(this.gasService
                     .findAll(pageable)
                     .stream()
                     .map(GasResponse::fromEntity)
                     .collect(Collectors.toList())
                 );
+    }
+
+    @GetMapping("/mean")
+    public ResponseEntity<MeanResponse>getMean(@PageableDefault (value = 100, sort = {"id"}, direction = Sort.Direction.DESC) Pageable pageable){
+
+        Double mean = this.gasService
+                .findAll(pageable)
+                .stream()
+                .mapToInt(gr -> gr.getPpm())
+                .average().orElse(0.00);
+
+        return ResponseEntity.ok(new MeanResponse(mean));
     }
 
 }
