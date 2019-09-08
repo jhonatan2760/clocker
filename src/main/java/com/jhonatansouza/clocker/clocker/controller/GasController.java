@@ -56,4 +56,5 @@ public class GasController {
         return ResponseEntity.ok(new MeanResponse(mean));
     }
 
+    
 }

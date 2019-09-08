@@ -10,6 +10,7 @@ public class ClockerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ClockerApplication.class, args);
+
 	}
 
 }

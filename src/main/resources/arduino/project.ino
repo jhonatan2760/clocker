@@ -1,14 +1,29 @@
 #include <Wire.h> //INCLUSÃO DE BIBLIOTECA
 #include <LiquidCrystal_I2C.h> //INCLUSÃO DE BIBLIOTECA
 #include "RTClib.h" //INCLUSÃO DA BIBLIOTECA
-
+#include <dht.h>
 
 RTC_DS3231 rtc; //OBJETO DO TIPO RTC_DS3231
+
+dht DHT;
+
+#define DHT11_PIN 7
 
 LiquidCrystal_I2C lcd(0x27,2,1,0,4,5,6,7,3, POSITIVE); //ENDEREÇO DO I2C E DEMAIS INFORMAÇÕES
 
 float seno;
 int frequencia;
+
+byte termo[] = {
+  B00100,
+  B01010,
+  B01010,
+  B01110,
+  B01110,
+  B11111,
+  B11111,
+  B01110
+};
 
 byte cool[] = {
   B00000,
@@ -41,6 +56,17 @@ byte low_bar[] = {
   B11111,
   B11111,
   B11111
+};
+
+byte blueethoot[] = {
+  B00100,
+  B00110,
+  B10101,
+  B01110,
+  B01110,
+  B10101,
+  B00110,
+  B00100
 };
 
 byte antena[8] = {
@@ -92,7 +118,7 @@ void setup()
     //rtc.adjust(DateTime(F(__DATE__), F(__TIME__))); //CAPTURA A DATA E HORA EM QUE O SKETCH É COMPILADO
     //rtc.adjust(DateTime(2018, 9, 29, 15, 00, 45)); //(ANO), (MÊS), (DIA), (HORA), (MINUTOS), (SEGUNDOS)
   }
-  delay(100);
+  //delay(100);
 
   pinMode(0, OUTPUT);
   pinMode(9, OUTPUT);
@@ -104,10 +130,11 @@ void setup()
   lcd.setBacklight(1);
   lcd.createChar(0, Skull);
   lcd.createChar(1, Clock);
-  lcd.createChar(2, antena);
+  lcd.createChar(2, blueethoot);
   lcd.createChar(3, low_bar);
   lcd.createChar(4, medium_bar);
   lcd.createChar(5, cool);
+  lcd.createChar(6, termo);
   // Clears the LCD screen
   lcd.clear();
 
@@ -125,6 +152,8 @@ void setup()
   lcd.write(byte(3));
   lcd.setCursor(14,0);
   lcd.write(byte(4));
+  lcd.setCursor(11,1);
+  lcd.write(byte(6));
   //tone(9, 0);
 }
 
@@ -169,4 +198,12 @@ void loop()
   //Serial.println(now.day()+"/"+now.month()+"/"+now.year(), DEC);
   delay(1000);
 
+  lcd.setCursor(12,2);
+  int chk = DHT.read11(DHT11_PIN);
+ lcd.print((float) (DHT.temperature + 6) , 0);
+ lcd.setCursor(14,2);
+ lcd.print((char)223); //degree sign
+ lcd.setCursor(15,2);
+ lcd.println("C");
+ Serial.println("Hello World!");
 }

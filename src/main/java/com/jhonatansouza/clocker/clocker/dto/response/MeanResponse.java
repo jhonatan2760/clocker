@@ -9,6 +9,7 @@ public class MeanResponse {
 
     public MeanResponse(Double mean){
         this.mean = mean;
+        this.timestamp = LocalDateTime.now();
     }
 
     public Double getMean() {
